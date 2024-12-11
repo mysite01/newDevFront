@@ -8,7 +8,7 @@ const ReadQACode: React.FC = () => {
     useEffect(() => {
         // Extrahiere den `codeInvite` aus der URL
         const extractedCodeInvite = extractCodeInviteFromCurrentUrl();
-
+console.log(extractedCodeInvite)
         if (extractedCodeInvite) {
             setCodeInvite(extractedCodeInvite);
             setIsDialogOpen(true);
@@ -37,6 +37,6 @@ export default ReadQACode;
 function extractCodeInviteFromCurrentUrl(): string | null {
     const path = window.location.pathname;
     const match = path.match(/\/ReadQACode\/([A-Z0-9]+)$/);
-
+    console.log(path," ",match)
     return match ? match[1] : null;
 }
