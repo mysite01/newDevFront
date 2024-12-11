@@ -37,6 +37,6 @@ export default ReadQACode;
 function extractCodeInviteFromCurrentUrl(): string | null {
     const path = window.location.pathname;
     const match = path.match(/\/ReadQACode\/([A-Z0-9]+)$/);
-    console.log(path," ",match)
+    console.log(path)
     return match ? match[1] : null;
 }
