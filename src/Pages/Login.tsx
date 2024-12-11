@@ -59,20 +59,7 @@ const LoginPage: React.FC = () => {
     }, [searchParams]);
 
     //checkout session
-    useEffect(() => {
-        const token = sessionStorage.getItem("authToken");
-        const tokenLocal = localStorage.getItem('authToken');
-
-        if (token || tokenLocal) {
-            setIsLoggedIn(true);
-            isLoggedInA = true
-        } else {
-            setIsLoggedIn(false);
-            isLoggedInA = false;
-            navigate("/");
-        }
-
-    }, []);
+    
 
 
     // Run authentication check on component mount
