@@ -37,7 +37,7 @@ const App: React.FC = () => {
           <Route path="/Map" element={<MapPage />} />
           <Route path="/gameOver" element={<GameOver />} />
 
-          <Route path="/ReadQACode/:codeInvite" element={<ReadQACode />} />
+          <Route path="/ReadQACode/:codeInvite" element={<LandingPage />} />
           <Route path="/:codeInvite" element={<RedirectHandler />} />
           <Route path="/codelobbygame" element={<ShareCodeLobbyGame />} />
 
