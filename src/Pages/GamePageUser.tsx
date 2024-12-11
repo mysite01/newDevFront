@@ -121,43 +121,43 @@ const GamePageUser: React.FC<Props> = () => {
     };
 
 
-    // create host
     const handleSaveHostBuild = async () => {
         var numOfTeam = parseInt(amountOfTeam, 10);
-
         var teamID: string[] = [];
         if (numOfTeam < 0) {
-            numOfTeam = 1;
+          numOfTeam = 1;
         }
-        if (numOfTeam) {
-            let codeInvite: undefined;
-            let playersIDData: undefined;
-            let host = true;
-            //save as Player bevor build team
-            const newPlayer = await dispatch(createNewPlayer({ nickName, host }));
-            const playersID = [];
-            playersID.push(newPlayer.payload.id);
-
-            for (let i = 0; i < numOfTeam; i++) {
-                const dataInfo = await dispatch(createNewTeam({ amountOfTeam: Number(numOfTeam), playersID, host, nameOfTeam }));
-                codeInvite = dataInfo.payload.codeInvite;
-                playersIDData = dataInfo.payload.playersID;
-
-                if (createNewTeam.fulfilled.match(dataInfo)) {
-                    teamID.push(dataInfo.payload.id);
-                } else {
-                    console.error("Error creating team:", dataInfo);
-                }
+        if (amountOfTeam) {
+          let codeInvite: undefined;
+          let playersIDData: undefined;
+          const playersID = playerList.map((player) => String(player.id)).filter((id) => id !== 'undefined');
+          let players: string[] = []
+          for (let i = 0; i < numOfTeam; i++) {
+            let dataInfo
+            
+            if(codeInvite){
+              dataInfo = await dispatch(createNewTeam({ amountOfTeam: Number(amountOfTeam), playersID: players, host, nameOfTeam, codeInvite }));
+            } else {
+              dataInfo = await dispatch(createNewTeam({ amountOfTeam: Number(amountOfTeam), playersID: players, host, nameOfTeam }));
             }
-
-            handleClose();
-            navigate('/LobbyHostGamePage', { state: { amountOfTeam, nickName, teamID, codeInvite: codeInvite, playerID: playersID[0] } });
-
+            codeInvite = dataInfo.payload.codeInvite;
+            playersIDData = dataInfo.payload.playersID;
+    
+    
+            if (createNewTeam.fulfilled.match(dataInfo)) {
+              teamID.push(dataInfo.payload.id);
+            } else {
+              console.error("Error creating team:", dataInfo);
+            }
+          }
+    
+          handleClose();
+          navigate('/LobbyHostGamePage', { state: { amountOfTeam, nickName, teamID, codeInvite: codeInvite, playerID: playersID[0] } });
+    
         } else {
-            alert('Please enter a valid number of team.');
+          alert('Please enter a valid number of team.');
         }
-    };
-
+      };
 
 
     return (
