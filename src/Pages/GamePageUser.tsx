@@ -108,7 +108,7 @@ const GamePageUser: React.FC<Props> = () => {
         e.preventDefault();
         const playerID = playerList.map((player) => String(player.id)).filter((id) => id !== 'undefined');
         //save as Player bevor go to lobby game
-        const newPlayer = await dispatch(createNewPlayer({ nickName, host }));
+        const newPlayer = await dispatch(createNewPlayer({ nickName, host:true }));
         const playersID = [];
         playersID.push(newPlayer.payload.id);
 
